@@ -24,8 +24,6 @@ Temel entity yapısı:
 - **MatchEvent** → Gol, kart ve oyuncu değişiklikleri
 - **MatchStats** → Maç istatistikleri
 
-> Fixture tablosunda aynı Team tablosuna çift ilişki bulunduğundan oluşan cascade sorunu, `DeleteBehavior.NoAction` ile çözülmüştür.
-
 ---
 
 ## ✨ Temel Özellikler
