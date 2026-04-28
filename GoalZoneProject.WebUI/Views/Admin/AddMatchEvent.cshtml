@@ -1,0 +1,204 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maç Olayı Ekle — GoalZone Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #060b14; --bg2: #0a1120; --card: #0f1a2e; --card2: #13203a;
+            --elevated: #192840; --border: #1e3050;
+            --green: #00e676; --blue: #2979ff; --gold: #ffd600; --red: #ff1744;
+            --t1: #eef2ff; --t2: #7b96c4; --t3: #3d5478;
+            --sidebar: #080f1e; --sidebar-w: 240px;
+            --fd: 'Barlow Condensed',sans-serif; --fb: 'Barlow',sans-serif;
+            --tr: all .2s ease;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+        body { font-family: var(--fb); background: var(--bg); color: var(--t1); min-height: 100vh; display: flex; }
+        a { text-decoration: none; color: inherit }
+
+        .sidebar {
+            width: var(--sidebar-w); background: var(--sidebar);
+            border-right: 1px solid var(--border); display: flex;
+            flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100;
+        }
+        .sb-brand {
+            padding: 22px 20px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sb-brand-ico {
+            width: 34px; height: 34px;
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; font-size: 16px; flex-shrink: 0;
+        }
+        .sb-brand-txt { font-family: var(--fd); font-size: 18px; font-weight: 800; }
+        .sb-brand-txt span { color: var(--green); }
+        .sb-badge {
+            font-family: var(--fd); font-size: 9px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--gold); background: rgba(255,214,0,.1);
+            border: 1px solid rgba(255,214,0,.2); border-radius: 5px;
+            padding: 2px 7px; margin-left: 4px;
+        }
+        .sb-section {
+            font-family: var(--fd); font-size: 9px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--t3);
+            padding: 20px 20px 8px;
+        }
+        .sb-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 20px; color: var(--t2); font-size: 13px;
+            font-weight: 500; transition: var(--tr); border-left: 3px solid transparent;
+        }
+        .sb-link i { font-size: 15px; width: 18px; text-align: center; }
+        .sb-link:hover { background: var(--card); color: var(--t1); border-left-color: var(--blue); }
+        .sb-link.active { background: rgba(0,230,118,.06); color: var(--green); border-left-color: var(--green); font-weight: 600; }
+        .sb-bottom { margin-top: auto; padding: 16px 20px; border-top: 1px solid var(--border); }
+        .sb-back { display: flex; align-items: center; gap: 8px; color: var(--t3); font-size: 12px; transition: var(--tr); }
+        .sb-back:hover { color: var(--t1); }
+
+        .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        .topbar {
+            background: var(--bg2); border-bottom: 1px solid var(--border);
+            padding: 0 28px; height: 60px; display: flex;
+            align-items: center; justify-content: space-between;
+        }
+        .topbar-title { font-family: var(--fd); font-size: 20px; font-weight: 800; letter-spacing: .5px; }
+        .topbar-right { display: flex; align-items: center; gap: 10px; }
+        .tb-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--fd); font-size: 14px; font-weight: 800;
+        }
+        .tb-info { font-size: 12px; }
+        .tb-name { font-weight: 600; color: var(--t1); }
+        .tb-role { color: var(--t3); font-size: 11px; }
+
+        .content { padding: 28px; flex: 1; }
+        .page-head { margin-bottom: 24px; }
+        .page-head h2 { font-family: var(--fd); font-size: 26px; font-weight: 900; }
+        .page-head p { font-size: 13px; color: var(--t3); margin-top: 4px; }
+
+        .form-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 28px 32px;
+        }
+        .form-section-title {
+            font-family: var(--fd); font-size: 12px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--t3);
+            margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+        }
+        .form-label { font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 6px; }
+        .form-control, .form-select {
+            background: var(--elevated); border: 1px solid var(--border);
+            color: var(--t1); border-radius: 8px; padding: 10px 14px; font-size: 13px;
+        }
+        .form-control:focus, .form-select:focus {
+            background: var(--elevated); border-color: var(--green);
+            color: var(--t1); box-shadow: 0 0 0 3px rgba(0,230,118,.12);
+        }
+        .form-control::placeholder { color: var(--t3); }
+        .form-select option { background: var(--card); }
+        .btn-submit {
+            background: linear-gradient(135deg, var(--green), #00c853);
+            border: none; color: #000; padding: 12px 32px; border-radius: 8px;
+            font-family: var(--fd); font-size: 14px; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+            transition: var(--tr);
+        }
+        .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sb-brand">
+        <div class="sb-brand-ico">⚽</div>
+        <div>
+            <div class="sb-brand-txt">Goal<span>Zone</span></div>
+        </div>
+        <span class="sb-badge">Admin</span>
+    </div>
+    <div class="sb-section">Yönetim</div>
+    <a href="/Admin/Index" class="sb-link"><i class="bi bi-grid-fill"></i> Dashboard</a>
+    <a href="/Admin/AddFixture" class="sb-link"><i class="bi bi-calendar-plus"></i> Maç Ekle</a>
+    <a href="/Admin/AddMatchEvent" class="sb-link active"><i class="bi bi-lightning-fill"></i> Maç Olayı Ekle</a>
+    <a href="/Admin/AddMatchStats" class="sb-link"><i class="bi bi-bar-chart-fill"></i> İstatistik Ekle</a>
+    <div class="sb-bottom">
+        <a href="/Main/Index" class="sb-back"><i class="bi bi-arrow-left"></i> Siteye Dön</a>
+    </div>
+</aside>
+
+<div class="main">
+    <div class="topbar">
+        <div class="topbar-title">Maç Olayı Ekle</div>
+        <div class="topbar-right">
+            <div class="tb-info text-end">
+                <div class="tb-name">Admin</div>
+                <div class="tb-role">Yönetici</div>
+            </div>
+            <div class="tb-avatar">A</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="page-head">
+            <h2>Maç Olayı Ekle</h2>
+            <p>Gol, sarı/kırmızı kart veya oyuncu değişikliği eklemek için formu doldurun.</p>
+        </div>
+
+        <form method="post" action="/Admin/AddMatchEvent">
+        <div class="form-card">
+            <div class="form-section-title">Olay Bilgileri</div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Maç ID (Fixture ID)</label>
+                    <input type="number" name="FixtureId" class="form-control" placeholder="Maç ID girin" min="1" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Oyuncu Adı</label>
+                    <input type="text" name="PlayerName" class="form-control" placeholder="Oyuncu adı" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Dakika</label>
+                    <input type="number" name="Minute" class="form-control" placeholder="0 - 120" min="0" max="120" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Olay Türü</label>
+                    <select name="EventType" class="form-select">
+                        <option value="Gol">⚽ Gol</option>
+                        <option value="SariKart">🟨 Sarı Kart</option>
+                        <option value="KirmiziKart">🟥 Kırmızı Kart</option>
+                        <option value="OyuncuDegisikligi">🔄 Oyuncu Değişikliği</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Taraf</label>
+                    <select name="TeamSide" class="form-select">
+                        <option value="Ev Sahibi">🏠 Ev Sahibi</option>
+                        <option value="Deplasman">✈️ Deplasman</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn-submit"><i class="bi bi-plus-lg me-2"></i>Olay Ekle</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

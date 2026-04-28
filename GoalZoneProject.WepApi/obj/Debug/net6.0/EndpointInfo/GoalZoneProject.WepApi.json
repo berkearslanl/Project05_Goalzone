@@ -1,0 +1,492 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "GoalZoneProject.WepApi",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Fixtures": {
+      "get": {
+        "tags": [
+          "Fixtures"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Fixtures"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFixtureDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFixtureDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFixtureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Fixtures/GetByWeek/{weekNumber}": {
+      "get": {
+        "tags": [
+          "Fixtures"
+        ],
+        "parameters": [
+          {
+            "name": "weekNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Fixtures/{id}": {
+      "get": {
+        "tags": [
+          "Fixtures"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/MatchEvents": {
+      "get": {
+        "tags": [
+          "MatchEvents"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MatchEvents"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchEventDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchEventDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchEventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/MatchEvents/GetByFixture/{fixtureId}": {
+      "get": {
+        "tags": [
+          "MatchEvents"
+        ],
+        "parameters": [
+          {
+            "name": "fixtureId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/MatchEvents/{id}": {
+      "delete": {
+        "tags": [
+          "MatchEvents"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/MatchStats": {
+      "get": {
+        "tags": [
+          "MatchStats"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MatchStats"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchStatisticDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchStatisticDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchStatisticDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/MatchStats/GetByFixture/{fixtureId}": {
+      "get": {
+        "tags": [
+          "MatchStats"
+        ],
+        "parameters": [
+          {
+            "name": "fixtureId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Teams": {
+      "get": {
+        "tags": [
+          "Teams"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Teams"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Teams"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateFixtureDto": {
+        "type": "object",
+        "properties": {
+          "homeTeamId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayTeamId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeTeamHalfScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayTeamHalfScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeTeamScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayTeamScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stadium": {
+            "type": "string",
+            "nullable": true
+          },
+          "matchDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "weekNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateMatchEventDto": {
+        "type": "object",
+        "properties": {
+          "fixtureId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "playerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eventType": {
+            "type": "string",
+            "nullable": true
+          },
+          "teamSide": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateMatchStatisticDto": {
+        "type": "object",
+        "properties": {
+          "fixtureId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homePossession": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayPossession": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeShots": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayShots": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeShotsOnTarget": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayShotsOnTarget": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homePasses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayPasses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homePassAccuracy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayPassAccuracy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeCorners": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayCorners": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeFouls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayFouls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeOffsides": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayOffsides": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeYellowCards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayYellowCards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeRedCards": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "awayRedCards": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTeamDto": {
+        "type": "object",
+        "properties": {
+          "teamName": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

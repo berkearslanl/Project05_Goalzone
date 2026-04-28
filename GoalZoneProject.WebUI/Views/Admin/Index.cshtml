@@ -1,0 +1,230 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel — GoalZone</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #060b14; --bg2: #0a1120; --card: #0f1a2e; --card2: #13203a;
+            --elevated: #192840; --border: #1e3050;
+            --green: #00e676; --blue: #2979ff; --gold: #ffd600; --red: #ff1744;
+            --t1: #eef2ff; --t2: #7b96c4; --t3: #3d5478;
+            --sidebar: #080f1e; --sidebar-w: 240px;
+            --fd: 'Barlow Condensed',sans-serif; --fb: 'Barlow',sans-serif;
+            --tr: all .2s ease;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+        body { font-family: var(--fb); background: var(--bg); color: var(--t1); min-height: 100vh; display: flex; }
+        a { text-decoration: none; color: inherit }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-w); background: var(--sidebar);
+            border-right: 1px solid var(--border); display: flex;
+            flex-direction: column; position: fixed; top: 0; left: 0;
+            height: 100vh; z-index: 100;
+        }
+        .sb-brand {
+            padding: 22px 20px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sb-brand-ico {
+            width: 34px; height: 34px;
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; font-size: 16px; flex-shrink: 0;
+        }
+        .sb-brand-txt { font-family: var(--fd); font-size: 18px; font-weight: 800; }
+        .sb-brand-txt span { color: var(--green); }
+        .sb-badge {
+            font-family: var(--fd); font-size: 9px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--gold); background: rgba(255,214,0,.1);
+            border: 1px solid rgba(255,214,0,.2); border-radius: 5px;
+            padding: 2px 7px; margin-left: 4px;
+        }
+        .sb-section {
+            font-family: var(--fd); font-size: 9px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--t3);
+            padding: 20px 20px 8px;
+        }
+        .sb-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 20px; color: var(--t2); font-size: 13px;
+            font-weight: 500; transition: var(--tr); border-left: 3px solid transparent;
+        }
+        .sb-link i { font-size: 15px; width: 18px; text-align: center; }
+        .sb-link:hover { background: var(--card); color: var(--t1); border-left-color: var(--blue); }
+        .sb-link.active { background: rgba(41,121,255,.08); color: var(--blue); border-left-color: var(--blue); font-weight: 600; }
+        .sb-bottom {
+            margin-top: auto; padding: 16px 20px;
+            border-top: 1px solid var(--border);
+        }
+        .sb-back {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--t3); font-size: 12px; transition: var(--tr);
+        }
+        .sb-back:hover { color: var(--t1); }
+
+        /* MAIN */
+        .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--bg2); border-bottom: 1px solid var(--border);
+            padding: 0 28px; height: 60px; display: flex;
+            align-items: center; justify-content: space-between;
+        }
+        .topbar-title { font-family: var(--fd); font-size: 20px; font-weight: 800; letter-spacing: .5px; }
+        .topbar-right { display: flex; align-items: center; gap: 10px; }
+        .tb-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--fd); font-size: 14px; font-weight: 800;
+        }
+        .tb-info { font-size: 12px; }
+        .tb-name { font-weight: 600; color: var(--t1); }
+        .tb-role { color: var(--t3); font-size: 11px; }
+
+        /* CONTENT */
+        .content { padding: 28px; flex: 1; }
+
+        /* WELCOME */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(41,121,255,.12), rgba(0,230,118,.06));
+            border: 1px solid rgba(41,121,255,.2); border-radius: 14px;
+            padding: 28px 32px; margin-bottom: 28px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .welcome-title { font-family: var(--fd); font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+        .welcome-sub { font-size: 13px; color: var(--t2); }
+        .welcome-icon { font-size: 48px; opacity: .4; }
+
+        /* STAT CARDS */
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+        .stat-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px 22px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .stat-icon {
+            width: 44px; height: 44px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+        .stat-label { font-size: 11px; color: var(--t3); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .stat-val { font-family: var(--fd); font-size: 26px; font-weight: 900; line-height: 1; margin-top: 2px; }
+
+        /* ACTION CARDS */
+        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .action-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 28px 24px; text-align: center;
+            transition: var(--tr); cursor: pointer; display: block;
+        }
+        .action-card:hover {
+            background: var(--card2); border-color: rgba(41,121,255,.4);
+            transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.4);
+        }
+        .ac-icon {
+            width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
+        }
+        .ac-title { font-family: var(--fd); font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+        .ac-desc { font-size: 12px; color: var(--t3); line-height: 1.6; }
+        .ac-arrow { margin-top: 16px; color: var(--t3); font-size: 13px; transition: var(--tr); }
+        .action-card:hover .ac-arrow { color: var(--blue); }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sb-brand">
+        <div class="sb-brand-ico">⚽</div>
+        <div>
+            <div class="sb-brand-txt">Goal<span>Zone</span></div>
+        </div>
+        <span class="sb-badge">Admin</span>
+    </div>
+
+    <div class="sb-section">Yönetim</div>
+    <a href="/Admin/Index" class="sb-link active"><i class="bi bi-grid-fill"></i> Dashboard</a>
+    <a href="/Admin/AddFixture" class="sb-link"><i class="bi bi-calendar-plus"></i> Maç Ekle</a>
+    <a href="/Admin/AddMatchEvent" class="sb-link"><i class="bi bi-lightning-fill"></i> Maç Olayı Ekle</a>
+    <a href="/Admin/AddMatchStats" class="sb-link"><i class="bi bi-bar-chart-fill"></i> İstatistik Ekle</a>
+
+    <div class="sb-bottom">
+        <a href="/Main/Index" class="sb-back"><i class="bi bi-arrow-left"></i> Siteye Dön</a>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+    <div class="topbar">
+        <div class="topbar-title">Dashboard</div>
+        <div class="topbar-right">
+            <div class="tb-info text-end">
+                <div class="tb-name">Admin</div>
+                <div class="tb-role">Yönetici</div>
+            </div>
+            <div class="tb-avatar">A</div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- WELCOME -->
+        <div class="welcome-card">
+            <div>
+                <div class="welcome-title">Hoş Geldin, Admin 👋</div>
+                <div class="welcome-sub">GoalZone yönetim paneline hoş geldin. Aşağıdan işlem yapmak istediğin bölümü seç.</div>
+            </div>
+            <div class="welcome-icon">⚽</div>
+        </div>
+
+        <!-- ACTION CARDS -->
+        <div class="action-grid">
+            <a href="/Admin/AddFixture" class="action-card">
+                <div class="ac-icon" style="background:rgba(41,121,255,.12);color:var(--blue)">
+                    <i class="bi bi-calendar-plus-fill"></i>
+                </div>
+                <div class="ac-title">Maç Ekle</div>
+                <div class="ac-desc">Yeni bir fikstür maçı ekle. Ev sahibi, deplasman, tarih ve saha bilgilerini gir.</div>
+                <div class="ac-arrow"><i class="bi bi-arrow-right"></i> Git</div>
+            </a>
+
+            <a href="/Admin/AddMatchEvent" class="action-card">
+                <div class="ac-icon" style="background:rgba(0,230,118,.1);color:var(--green)">
+                    <i class="bi bi-lightning-fill"></i>
+                </div>
+                <div class="ac-title">Maç Olayı Ekle</div>
+                <div class="ac-desc">Gol, sarı kart, kırmızı kart veya oyuncu değişikliği ekle.</div>
+                <div class="ac-arrow"><i class="bi bi-arrow-right"></i> Git</div>
+            </a>
+
+            <a href="/Admin/AddMatchStats" class="action-card">
+                <div class="ac-icon" style="background:rgba(255,214,0,.08);color:var(--gold)">
+                    <i class="bi bi-bar-chart-fill"></i>
+                </div>
+                <div class="ac-title">İstatistik Ekle</div>
+                <div class="ac-desc">Topa sahip olma, şut, pas, korner gibi maç istatistiklerini gir.</div>
+                <div class="ac-arrow"><i class="bi bi-arrow-right"></i> Git</div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
